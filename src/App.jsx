@@ -3,7 +3,7 @@ import "./index.css";
 
 const App = () => {
   return (
-    <div>
+    <div className="container">
       <Header />
       <Menu />
       <Footer />
@@ -23,16 +23,22 @@ function Pizza() {
 }
 
 function Header() {
-  return <h1>Fast React Pizza Co.</h1>;
+  // const style = { color: "blue", fontSize: "48px", textTransform: "uppercase" };
+  const style = {};
+  return (
+    <header className="header">
+      <h1 style={style}>Fast React Pizza Co.</h1>;
+    </header>
+  );
 }
 
 function Menu() {
   return (
-    <div>
-      <h2>Our Menu</h2>;
+    <main className="menu">
+      <h2>Our Menu</h2>
       <Pizza />;
       <Pizza />
-    </div>
+    </main>
   );
 }
 
@@ -47,6 +53,9 @@ function Footer() {
   // else "sorry we are close";
   // console.log(hour);
   return (
-    <footer> {new Date().toLocaleTimeString()}We're currently Open</footer>
+    <footer className="footer">
+      {" "}
+      {new Date().toLocaleTimeString()} We're currently Open
+    </footer>
   );
 }
