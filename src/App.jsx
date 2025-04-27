@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 
-const App = () => {
+export default function App() {
   return (
     <div className="container">
       <Header />
@@ -9,15 +9,18 @@ const App = () => {
       <Footer />
     </div>
   );
-};
+}
 
-export default App;
-
-function Pizza() {
+function Pizza(props) {
+  console.log(props);
   return (
-    <div>
-      <h3>Pizza Spinaci</h3>
-      <img src="../pizzas/spinaci.jpg" alt="Spinaci" />
+    <div className="pizza">
+      <img src={props.photoName} alt={props.name} />
+      <div>
+        <h3>{props.name}</h3>
+        <p>{props.ingredients}</p>
+        <span>{props.price}</span>
+      </div>
     </div>
   );
 }
@@ -36,8 +39,20 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      <Pizza />;
-      <Pizza />
+      <Pizza
+        name="Pizza Spinaci"
+        ingredients="Tomato, mozarella, spinach and ricotta cheese"
+        photoName="../pizzas/spinaci.jpg"
+        price={10} // pass as a number
+        //price="10"  pass as a string
+      />
+      <Pizza
+        name="Pizza Funghi"
+        ingredients="Tomato, mushrooms"
+        photoName="../pizzas/funghi.jpg"
+        price={12} // pass as a number
+        //price="12"  pass as a string
+      />
     </main>
   );
 }
