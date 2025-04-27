@@ -82,18 +82,24 @@ function Header() {
 
 function Menu() {
   const pizzas = pizzaData; // Store pizzaData a new variable
+  const numPizzas = pizzas.length; // check if there is pizza
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      //Use && to Render List - START
-      {pizzas && (
-        <ul className="pizzas">
-          {pizzas.map((pizza) => (
-            <Pizza pizzaObj={pizza} key={pizza.name} />
-          ))}
-        </ul>
-      )}
-      // END
+      {/* //Use && to Render List - START */}
+      {
+        numPizzas > 0 ? (
+          // "if this is true"
+          <ul className="pizzas">
+            {pizzas.map((pizza) => (
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        ) : (
+          <p>We're still working on our Menu</p>
+        ) // "if this is false"
+      }
+      {/* // END */}
     </main>
   );
 }
@@ -110,17 +116,19 @@ function Menu() {
 
 function Footer() {
   const hour = new Date().getHours();
-  const openHour = 6;
+  const openHour = 12;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
   console.log(isOpen);
   return (
     <footer className="footer">
-      {isOpen && (
+      {isOpen ? (
         <div className="order">
           <p>{new Date().toLocaleTimeString()} We're currently Open</p>
           <button className="btn">Order</button>
         </div>
+      ) : (
+        <p>Sorry we're closed. Come back again at {openHour}:00</p>
       )}
     </footer>
   );
