@@ -57,7 +57,10 @@ export default function App() {
 }
 
 function Pizza(props) {
-  console.log(props);
+  //Early Return Start
+  if (props.pizzaObj.soldOut) return null;
+  //Early Return End
+
   return (
     <li className="pizza">
       <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
@@ -116,20 +119,32 @@ function Menu() {
 
 function Footer() {
   const hour = new Date().getHours();
-  const openHour = 12;
+  const openHour = 6;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
-  console.log(isOpen);
+
+  if (!isOpen)
+    return <h3>Sorry we're closed. Come back again at {openHour}:00</h3>;
+
   return (
     <footer className="footer">
       {isOpen ? (
-        <div className="order">
-          <p>{new Date().toLocaleTimeString()} We're currently Open</p>
-          <button className="btn">Order</button>
-        </div>
+        // Extracting JSX Into new Component Start
+        <Order closeHour={closeHour} />
       ) : (
+        // Extracting JSX Into new Component End
         <p>Sorry we're closed. Come back again at {openHour}:00</p>
       )}
     </footer>
+  );
+}
+function Order(props) {
+  return (
+    <div className="order">
+      <p>
+        We're open until {props.closeHour}:00. Come visit us or order online
+      </p>
+      <button className="btn">Order</button>
+    </div>
   );
 }
