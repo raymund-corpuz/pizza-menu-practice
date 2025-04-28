@@ -56,26 +56,22 @@ export default function App() {
   );
 }
 
-function Pizza(props) {
-  //Early Return Start
-  if (props.pizzaObj.soldOut) return null;
-  //Early Return End
+function Pizza({ pizzaObj }) {
+  if (pizzaObj.soldOut) return null;
 
   return (
     <li className="pizza">
-      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+      <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
-        <h3>{props.pizzaObj.name}</h3>
-        <p>{props.pizzaObj.ingredients}</p>
-        <span>{props.pizzaObj.price}</span>
+        <h3>{pizzaObj.name}</h3>
+        <p>{pizzaObj.ingredients}</p>
+        <span>{pizzaObj.price}</span>
       </div>
     </li>
   );
 }
 
 function Header() {
-  // const style = { color: "blue", fontSize: "48px", textTransform: "uppercase" };
-
   return (
     <header className="header">
       <h1>Fast React Pizza Co.</h1>;
@@ -84,37 +80,22 @@ function Header() {
 }
 
 function Menu() {
-  const pizzas = pizzaData; // Store pizzaData a new variable
-  const numPizzas = pizzas.length; // check if there is pizza
+  const pizzas = pizzaData;
+  const numPizzas = pizzas.length;
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      {/* //Use && to Render List - START */}
-      {
-        numPizzas > 0 ? (
-          // "if this is true"
-          <ul className="pizzas">
-            {pizzas.map((pizza) => (
-              <Pizza pizzaObj={pizza} key={pizza.name} />
-            ))}
-          </ul>
-        ) : (
-          <p>We're still working on our Menu</p>
-        ) // "if this is false"
-      }
-      {/* // END */}
+      {numPizzas > 0 ? (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      ) : (
+        <p>We're still working on our Menu</p>
+      )}
     </main>
   );
-}
-
-{
-  /* <Pizza
-        name="Pizza Spinaci"
-        ingredients="Tomato, mozarella, spinach and ricotta cheese"
-        photoName="../pizzas/spinaci.jpg"
-        price={10} // pass as a number
-        //price="10"  pass as a string
-      /> */
 }
 
 function Footer() {
@@ -130,7 +111,7 @@ function Footer() {
     <footer className="footer">
       {isOpen ? (
         // Extracting JSX Into new Component Start
-        <Order closeHour={closeHour} />
+        <Order closeHour={closeHour} openHour={openHour} />
       ) : (
         // Extracting JSX Into new Component End
         <p>Sorry we're closed. Come back again at {openHour}:00</p>
@@ -138,11 +119,12 @@ function Footer() {
     </footer>
   );
 }
-function Order(props) {
+function Order({ closeHour, openHour }) {
   return (
     <div className="order">
       <p>
-        We're open until {props.closeHour}:00. Come visit us or order online
+        We're open until {openHour}:00 to {closeHour}:00. Come visit us or order
+        online
       </p>
       <button className="btn">Order</button>
     </div>
